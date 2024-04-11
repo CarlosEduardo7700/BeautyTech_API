@@ -38,6 +38,11 @@ public class ClienteController {
         var listaDto = repository.findAll(pageable)
                 .stream().map(ListagemClienteDto::new).toList();
         return ResponseEntity.ok(listaDto);
+    }
 
+    @GetMapping("{id}")
+    public ResponseEntity<DetalhesClienteDto> buscarPorRm(@PathVariable("id") Long id) {
+        var cliente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }
 }
