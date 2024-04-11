@@ -55,4 +55,11 @@ public class ClienteController {
 
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
