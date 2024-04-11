@@ -1,5 +1,6 @@
 package br.com.fiap.beautytech.models;
 
+import br.com.fiap.beautytech.dtos.AtualizarClienteDto;
 import br.com.fiap.beautytech.dtos.CadastroClienteDto;
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
 import br.com.fiap.beautytech.models.enums.Genero;
@@ -58,5 +59,22 @@ public class Cliente {
         this.dataDeNascimento = dto.dataDeNascimento();
         this.estadoCivil = dto.estadoCivil();
         this.genero = dto.genero();
+    }
+
+    public void atualizarDados(AtualizarClienteDto dto) {
+        if (dto.cpf() != null)
+            this.cpf = dto.cpf();
+        if (dto.nome() != null)
+            this.nome = dto.nome();
+        if (dto.email() != null)
+            this.email = dto.email();
+        if (dto.dataDeNascimento() != null)
+            this.dataDeNascimento = dto.dataDeNascimento();
+        if (dto.estadoCivil() != null)
+            this.estadoCivil = dto.estadoCivil();
+        if (dto.genero() != null)
+            this.genero = dto.genero();
+        if (dto.dataDeExclusao() != null)
+            this.dataDeExclusao = dto.dataDeExclusao();
     }
 }

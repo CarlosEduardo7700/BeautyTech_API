@@ -1,5 +1,6 @@
 package br.com.fiap.beautytech.controllers;
 
+import br.com.fiap.beautytech.dtos.AtualizarClienteDto;
 import br.com.fiap.beautytech.dtos.CadastroClienteDto;
 import br.com.fiap.beautytech.dtos.DetalhesClienteDto;
 import br.com.fiap.beautytech.dtos.ListagemClienteDto;
@@ -43,6 +44,15 @@ public class ClienteController {
     @GetMapping("{id}")
     public ResponseEntity<DetalhesClienteDto> buscarPorRm(@PathVariable("id") Long id) {
         var cliente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DetalhesClienteDto(cliente));
+    }
+
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody AtualizarClienteDto dto) {
+        var cliente = repository.getReferenceById(id);
+        cliente.atualizarDados(dto);
+
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }
 }
