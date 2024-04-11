@@ -6,6 +6,7 @@ import br.com.fiap.beautytech.dtos.DetalhesClienteDto;
 import br.com.fiap.beautytech.dtos.ListagemClienteDto;
 import br.com.fiap.beautytech.models.Cliente;
 import br.com.fiap.beautytech.repositories.ClienteRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetalhesClienteDto> inserir(@RequestBody CadastroClienteDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<DetalhesClienteDto> inserir(@RequestBody @Valid CadastroClienteDto dto, UriComponentsBuilder uriBuilder) {
         Cliente cliente = new Cliente(dto);
         repository.save(cliente);
 
@@ -49,7 +50,7 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @Transactional
-    public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody AtualizarClienteDto dto) {
+    public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid AtualizarClienteDto dto) {
         var cliente = repository.getReferenceById(id);
         cliente.atualizarDados(dto);
 
