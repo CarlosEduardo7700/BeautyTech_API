@@ -1,5 +1,6 @@
 package br.com.fiap.beautytech.models;
 
+import br.com.fiap.beautytech.dtos.CadastroClienteDto;
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
 import br.com.fiap.beautytech.models.enums.Genero;
 import jakarta.persistence.*;
@@ -49,4 +50,13 @@ public class Cliente {
 
     @Column(name = "DT_EXCLUSAO")
     private LocalDate dataDeExclusao;
+
+    public Cliente(CadastroClienteDto dto) {
+        this.cpf = dto.cpf();
+        this.nome = dto.nome();
+        this.email = dto.email();
+        this.dataDeNascimento = dto.dataDeNascimento();
+        this.estadoCivil = dto.estadoCivil();
+        this.genero = dto.genero();
+    }
 }
