@@ -35,11 +35,11 @@ public class Cliente {
     @Column(name = "EMAIL_CLIENTE", length = 100)
     private String email;
 
-    @Column(name = "DT_NASCIMENTO", nullable = false)
+    @Column(name = "DT_NASCIMENTO_CLIENTE", nullable = false)
     private LocalDate dataDeNascimento;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ESTADO_CIVIL", length = 30, nullable = false)
+    @Column(name = "ESTADO_CIVIL_CLIENTE", length = 30, nullable = false)
     private EstadoCivil estadoCivil;
 
     @Column(name = "GENERO", length = 30, nullable = false)
