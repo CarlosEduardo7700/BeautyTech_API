@@ -21,6 +21,10 @@ Para rodar a aplicação, siga estes passos:
 
 ![Diagrama de classes das entidades do projeto](documentos/BeautyTech.drawio.png)
 
+## Vídeo Apresentação
+
+https://youtu.be/_sZQKQddodk
+
 ## Endpoints (Sprint 1)
 
 - [http://localhost:8080/clientes](http://localhost:8080/clientes)
