@@ -17,6 +17,10 @@ Para rodar a aplicação, siga estes passos:
 3. Aguarde a inicialização da aplicação.
 4. Após a inicialização, você estará pronto para realizar as requisições.
 
+## Diagrama de Classes das Entidades
+
+![Diagrama de classes das entidades do projeto](documentos/BeautyTech.drawio.png)
+
 ## Endpoints (Sprint 1)
 
 - [http://localhost:8080/clientes](http://localhost:8080/clientes)
