@@ -1,7 +1,6 @@
 package br.com.fiap.beautytech.dtos;
 
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
-import br.com.fiap.beautytech.models.enums.Genero;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
@@ -20,8 +19,6 @@ public record CadastroClienteDto(
         @Past(message = "Data de nascimento precisa ser no passado.")
         LocalDate dataDeNascimento,
         @NotNull(message = "Estado Civil é obrigatório!")
-        EstadoCivil estadoCivil,
-        @NotNull(message = "Gênero é obrigatório!")
-        Genero genero
+        EstadoCivil estadoCivil
 ) {
 }

@@ -2,7 +2,6 @@ package br.com.fiap.beautytech.dtos;
 
 import br.com.fiap.beautytech.models.Cliente;
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
-import br.com.fiap.beautytech.models.enums.Genero;
 
 import java.time.LocalDate;
 
@@ -13,7 +12,6 @@ public record DetalhesClienteDto(
         String email,
         LocalDate dataDeNascimento,
         EstadoCivil estadoCivil,
-        Genero genero,
         LocalDate dataDeCadastro,
         LocalDate dataDeExclusao
 ) {
@@ -25,7 +23,6 @@ public record DetalhesClienteDto(
                 cliente.getEmail(),
                 cliente.getDataDeNascimento(),
                 cliente.getEstadoCivil(),
-                cliente.getGenero(),
                 cliente.getDataDeCadastro(),
                 cliente.getDataDeExclusao()
         );
