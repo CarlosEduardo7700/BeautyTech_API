@@ -3,7 +3,6 @@ package br.com.fiap.beautytech.models;
 import br.com.fiap.beautytech.dtos.AtualizarClienteDto;
 import br.com.fiap.beautytech.dtos.CadastroClienteDto;
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
-import br.com.fiap.beautytech.models.enums.Genero;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,9 +41,6 @@ public class Cliente {
     @Column(name = "ESTADO_CIVIL_CLIENTE", length = 30, nullable = false)
     private EstadoCivil estadoCivil;
 
-    @Column(name = "GENERO", length = 30, nullable = false)
-    private Genero genero;
-
     @CreatedDate
     @Column(name = "DT_CADASTRO", nullable = false)
     private LocalDate dataDeCadastro;
@@ -58,7 +54,6 @@ public class Cliente {
         this.email = dto.email();
         this.dataDeNascimento = dto.dataDeNascimento();
         this.estadoCivil = dto.estadoCivil();
-        this.genero = dto.genero();
     }
 
     public void atualizarDados(AtualizarClienteDto dto) {
@@ -72,8 +67,6 @@ public class Cliente {
             this.dataDeNascimento = dto.dataDeNascimento();
         if (dto.estadoCivil() != null)
             this.estadoCivil = dto.estadoCivil();
-        if (dto.genero() != null)
-            this.genero = dto.genero();
         if (dto.dataDeExclusao() != null)
             this.dataDeExclusao = dto.dataDeExclusao();
     }
