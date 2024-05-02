@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "BT_EMPRESA")
 @Getter
@@ -27,4 +29,7 @@ public class Empresa {
 
     @Column(name = "DESC_EMPRESA", length = 300, nullable = false)
     private String descricao;
+
+    @OneToMany(mappedBy = "empresa")
+    private List<Endereco> enderecos;
 }

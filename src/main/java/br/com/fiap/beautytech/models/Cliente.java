@@ -48,6 +48,14 @@ public class Cliente {
     @Column(name = "DT_EXCLUSAO")
     private LocalDate dataDeExclusao;
 
+    @ManyToOne
+    @JoinColumn(name="ID_GENERO", nullable = false)
+    private Genero genero;
+
+    @ManyToOne
+    @JoinColumn(name="ID_TELEFONE", nullable = false)
+    private Telefone telefone;
+
     public Cliente(CadastroClienteDto dto) {
         this.cpf = dto.cpf();
         this.nome = dto.nome();

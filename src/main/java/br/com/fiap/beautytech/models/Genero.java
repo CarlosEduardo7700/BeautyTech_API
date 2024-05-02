@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "BT_GENERO")
 @Getter @Setter
@@ -21,4 +23,7 @@ public class Genero {
 
     @Column(name = "DESC_GENERO", length = 100, nullable = false)
     private String descricao;
+
+    @OneToMany(mappedBy = "genero")
+    private List<Cliente> clientes;
 }
