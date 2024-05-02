@@ -28,4 +28,8 @@ public class Endereco {
 
     @Column(name = "COMPLEMENTO_ENDERECO", length = 50)
     private String complemento;
+
+    @ManyToOne
+    @JoinColumn(name="ID_EMPRESA", nullable = false)
+    private Empresa empresa;
 }
