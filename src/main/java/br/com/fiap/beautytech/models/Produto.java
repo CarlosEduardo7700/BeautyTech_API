@@ -46,4 +46,7 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto")
     private List<Acesso> acessos;
+
+    @OneToMany(mappedBy = "produto")
+    private List<CategoriaDeProduto> categoriasDeProdutos;
 }
