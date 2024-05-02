@@ -12,6 +12,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "BT_CLIENTE")
@@ -55,6 +56,9 @@ public class Cliente {
     @ManyToOne
     @JoinColumn(name="ID_TELEFONE", nullable = false)
     private Telefone telefone;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Acesso> acessos;
 
     public Cliente(CadastroClienteDto dto) {
         this.cpf = dto.cpf();

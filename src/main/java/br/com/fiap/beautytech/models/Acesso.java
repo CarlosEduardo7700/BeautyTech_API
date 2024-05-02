@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "BT_PRODUTO_CATEGORIA")
+@Table(name = "BT_ACESSO")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDeProduto {
+public class Acesso {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_PRODUTO_CATEGORIA")
+    @Column(name = "ID_ACESSO")
     private Long id;
 
     @ManyToOne
@@ -24,6 +24,6 @@ public class CategoriaDeProduto {
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name="ID_CATEGORIA", nullable = false)
-    private Categoria categoria;
+    @JoinColumn(name="ID_CLIENTE", nullable = false)
+    private Cliente cliente;
 }
