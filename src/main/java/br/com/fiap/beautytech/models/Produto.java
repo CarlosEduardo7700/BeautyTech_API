@@ -49,4 +49,7 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto")
     private List<CategoriaDeProduto> categoriasDeProdutos;
+
+    @OneToMany(mappedBy = "produto")
+    private List<ProdutoDaEmpresa> produtosDaEmpresa;
 }
