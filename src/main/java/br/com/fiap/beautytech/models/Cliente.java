@@ -60,6 +60,9 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Acesso> acessos;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<EnderecoDoCliente> enderecosDoCliente;
+
     public Cliente(CadastroClienteDto dto) {
         this.cpf = dto.cpf();
         this.nome = dto.nome();
