@@ -32,4 +32,7 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa")
     private List<Endereco> enderecos;
+
+    @OneToMany(mappedBy = "empresa")
+    private List<ProdutoDaEmpresa> produtosDaEmpresa;
 }
