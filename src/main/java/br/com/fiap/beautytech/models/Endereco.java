@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "BT_ENDERECO")
 @Getter @Setter
@@ -32,4 +34,7 @@ public class Endereco {
     @ManyToOne
     @JoinColumn(name="ID_EMPRESA", nullable = false)
     private Empresa empresa;
+
+    @OneToMany(mappedBy = "endereco")
+    private List<EnderecoDoCliente> enderecosDoCliente;
 }
