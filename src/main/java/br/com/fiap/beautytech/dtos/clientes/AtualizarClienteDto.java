@@ -1,24 +1,27 @@
-package br.com.fiap.beautytech.dtos;
+package br.com.fiap.beautytech.dtos.clientes;
 
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-public record CadastroClienteDto(
-        @NotBlank(message = "CPF é obrigatório!")
+public record AtualizarClienteDto(
         @Size(max = 11, min = 11, message = "CPF tem que ter 11 números.")
         String cpf,
-        @NotBlank(message = "Nome é obrigatório!")
         @Size(max = 150)
         String nome,
         @Email(message = "Formato de email inválido!")
         @Size(max = 100)
         String email,
-        @NotNull(message = "Data de nascimento é obrigatória!")
+        @Size(max = 50)
+        String senha,
         @Past(message = "Data de nascimento precisa ser no passado.")
         LocalDate dataDeNascimento,
-        @NotNull(message = "Estado Civil é obrigatório!")
-        EstadoCivil estadoCivil
+        EstadoCivil estadoCivil,
+        LocalDate dataDeExclusao,
+        Long idGenero,
+        Long idTelefone
 ) {
 }

@@ -1,11 +1,12 @@
 package br.com.fiap.beautytech.controllers;
 
-import br.com.fiap.beautytech.dtos.AtualizarClienteDto;
-import br.com.fiap.beautytech.dtos.CadastroClienteDto;
-import br.com.fiap.beautytech.dtos.DetalhesClienteDto;
-import br.com.fiap.beautytech.dtos.ListagemClienteDto;
+import br.com.fiap.beautytech.dtos.clientes.*;
 import br.com.fiap.beautytech.models.Cliente;
+import br.com.fiap.beautytech.models.Genero;
+import br.com.fiap.beautytech.models.Telefone;
 import br.com.fiap.beautytech.repositories.ClienteRepository;
+import br.com.fiap.beautytech.repositories.GeneroRepository;
+import br.com.fiap.beautytech.repositories.TelefoneRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +25,30 @@ public class ClienteController {
     @Autowired
     private ClienteRepository repository;
 
+    @Autowired
+    private GeneroRepository generoRepository;
+
+    @Autowired
+    private TelefoneRepository telefoneRepository;
+
+    @PostMapping("login")
+    public ResponseEntity<DetalhesClienteDto> login(@RequestBody LoginClienteDto dto) {
+        var usuarioProcurado = repository.findByEmailAndSenha(dto.email(), dto.senha());
+        Cliente cliente;
+        if (usuarioProcurado.isEmpty())
+            return ResponseEntity.notFound().build();
+        else {
+            cliente = usuarioProcurado.get();
+            return ResponseEntity.ok(new DetalhesClienteDto(cliente));
+        }
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DetalhesClienteDto> inserir(@RequestBody @Valid CadastroClienteDto dto, UriComponentsBuilder uriBuilder) {
-        Cliente cliente = new Cliente(dto);
+        Cliente cliente = new Cliente(dto,
+                generoRepository.getReferenceById(dto.idGenero()),
+                telefoneRepository.getReferenceById(dto.idTelefone()));
         repository.save(cliente);
 
         URI uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
@@ -52,7 +73,15 @@ public class ClienteController {
     @Transactional
     public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid AtualizarClienteDto dto) {
         var cliente = repository.getReferenceById(id);
-        cliente.atualizarDados(dto);
+        Genero genero = null;
+        Telefone telefone = null;
+
+        if (dto.idGenero() != null)
+            genero = generoRepository.getReferenceById(dto.idGenero());
+        if (dto.idTelefone() != null)
+            telefone = telefoneRepository.getReferenceById(dto.idTelefone());
+
+        cliente.atualizarDados(dto, genero, telefone);
 
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }

@@ -1,4 +1,4 @@
-package br.com.fiap.beautytech.dtos;
+package br.com.fiap.beautytech.dtos.clientes;
 
 import br.com.fiap.beautytech.models.Cliente;
 

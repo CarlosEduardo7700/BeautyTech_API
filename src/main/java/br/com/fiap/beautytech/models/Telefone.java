@@ -27,6 +27,6 @@ public class Telefone {
     @Column(name = "NR_TELEFONE", length = 9, nullable = false)
     private String numero;
 
-    @OneToMany(mappedBy = "telefone")
+    @OneToMany(mappedBy = "telefone", fetch = FetchType.LAZY)
     private List<Cliente> clientes;
 }

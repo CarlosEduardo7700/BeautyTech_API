@@ -1,7 +1,7 @@
 package br.com.fiap.beautytech.models;
 
-import br.com.fiap.beautytech.dtos.AtualizarClienteDto;
-import br.com.fiap.beautytech.dtos.CadastroClienteDto;
+import br.com.fiap.beautytech.dtos.clientes.AtualizarClienteDto;
+import br.com.fiap.beautytech.dtos.clientes.CadastroClienteDto;
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,8 +32,11 @@ public class Cliente {
     @Column(name = "NM_CLIENTE", length = 150, nullable = false)
     private String nome;
 
-    @Column(name = "EMAIL_CLIENTE", length = 100)
+    @Column(name = "EMAIL_CLIENTE", length = 100, nullable = false)
     private String email;
+
+    @Column(name = "SENHA_CLIENTE", length = 50, nullable = false)
+    private String senha;
 
     @Column(name = "DT_NASCIMENTO_CLIENTE", nullable = false)
     private LocalDate dataDeNascimento;
@@ -63,26 +66,35 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<EnderecoDoCliente> enderecosDoCliente;
 
-    public Cliente(CadastroClienteDto dto) {
+    public Cliente(CadastroClienteDto dto, Genero genero, Telefone telefone) {
         this.cpf = dto.cpf();
         this.nome = dto.nome();
         this.email = dto.email();
+        this.senha = dto.senha();
         this.dataDeNascimento = dto.dataDeNascimento();
         this.estadoCivil = dto.estadoCivil();
+        this.genero = genero;
+        this.telefone = telefone;
     }
 
-    public void atualizarDados(AtualizarClienteDto dto) {
+    public void atualizarDados(AtualizarClienteDto dto, Genero genero, Telefone telefone) {
         if (dto.cpf() != null)
             this.cpf = dto.cpf();
         if (dto.nome() != null)
             this.nome = dto.nome();
         if (dto.email() != null)
             this.email = dto.email();
+        if (dto.senha() != null)
+            this.senha = dto.senha();
         if (dto.dataDeNascimento() != null)
             this.dataDeNascimento = dto.dataDeNascimento();
         if (dto.estadoCivil() != null)
             this.estadoCivil = dto.estadoCivil();
         if (dto.dataDeExclusao() != null)
             this.dataDeExclusao = dto.dataDeExclusao();
+        if (genero != null)
+            this.genero = genero;
+        if (telefone != null)
+            this.telefone = telefone;
     }
 }
