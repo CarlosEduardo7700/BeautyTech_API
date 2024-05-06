@@ -64,7 +64,7 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<DetalhesClienteDto> buscarPorRm(@PathVariable("id") Long id) {
+    public ResponseEntity<DetalhesClienteDto> buscarPorId(@PathVariable("id") Long id) {
         var cliente = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }
