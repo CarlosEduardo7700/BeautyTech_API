@@ -24,6 +24,6 @@ public class Genero {
     @Column(name = "DESC_GENERO", length = 100, nullable = false)
     private String descricao;
 
-    @OneToMany(mappedBy = "genero")
+    @OneToMany(mappedBy = "genero", fetch = FetchType.LAZY)
     private List<Cliente> clientes;
 }
