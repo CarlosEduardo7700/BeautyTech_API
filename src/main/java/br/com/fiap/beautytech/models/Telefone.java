@@ -1,5 +1,6 @@
 package br.com.fiap.beautytech.models;
 
+import br.com.fiap.beautytech.dtos.clientes.CadastroClienteDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,12 @@ public class Telefone {
     @Column(name = "NR_TELEFONE", length = 9, nullable = false)
     private String numero;
 
-    @OneToMany(mappedBy = "telefone", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "telefone", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cliente> clientes;
+
+    public Telefone(CadastroClienteDto dto) {
+        this.ddi = dto.ddiTelefone();
+        this.ddd = dto.dddTelefone();
+        this.numero = dto.numeroTelefone();
+    }
 }

@@ -46,9 +46,13 @@ public class ClienteController {
     @PostMapping
     @Transactional
     public ResponseEntity<DetalhesClienteDto> inserir(@RequestBody @Valid CadastroClienteDto dto, UriComponentsBuilder uriBuilder) {
+
+        Telefone telefone = new Telefone(dto);
+        telefoneRepository.save(telefone);
+
         Cliente cliente = new Cliente(dto,
                 generoRepository.getReferenceById(dto.idGenero()),
-                telefoneRepository.getReferenceById(dto.idTelefone()));
+                telefone);
         repository.save(cliente);
 
         URI uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
