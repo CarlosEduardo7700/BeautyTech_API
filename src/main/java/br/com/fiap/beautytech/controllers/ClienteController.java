@@ -62,9 +62,14 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<List<ListagemClienteDto>> buscarTudo(Pageable pageable) {
+
         var listaDto = repository.findAll(pageable)
                 .stream().map(ListagemClienteDto::new).toList();
-        return ResponseEntity.ok(listaDto);
+
+        if (!listaDto.isEmpty())
+            return ResponseEntity.ok(listaDto);
+        else
+            return ResponseEntity.notFound().build();
     }
 
     @GetMapping("{id}")
