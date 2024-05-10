@@ -2,6 +2,7 @@ package br.com.fiap.beautytech.dtos.clientes;
 
 import br.com.fiap.beautytech.models.enums.EstadoCivil;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
@@ -22,6 +23,8 @@ public record AtualizarClienteDto(
         EstadoCivil estadoCivil,
         LocalDate dataDeExclusao,
         Long idGenero,
-        Long idTelefone
+        String ddiTelefone,
+        Integer dddTelefone,
+        String numeroTelefone
 ) {
 }
