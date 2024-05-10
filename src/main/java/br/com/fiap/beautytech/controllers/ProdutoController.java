@@ -52,7 +52,11 @@ public class ProdutoController {
     public ResponseEntity<List<ListagemProdutoDto>> buscarTudo(Pageable pageable) {
         var listaDto = repository.findAll(pageable)
                 .stream().map(ListagemProdutoDto::new).toList();
-        return ResponseEntity.ok(listaDto);
+
+        if (!listaDto.isEmpty())
+            return ResponseEntity.ok(listaDto);
+        else
+            return ResponseEntity.notFound().build();
     }
 
     @PutMapping("{id}")
