@@ -83,14 +83,11 @@ public class ClienteController {
     public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid AtualizarClienteDto dto) {
         var cliente = repository.getReferenceById(id);
         Genero genero = null;
-        Telefone telefone = null;
 
         if (dto.idGenero() != null)
             genero = generoRepository.getReferenceById(dto.idGenero());
-        if (dto.idTelefone() != null)
-            telefone = telefoneRepository.getReferenceById(dto.idTelefone());
 
-        cliente.atualizarDados(dto, genero, telefone);
+        cliente.atualizarDados(dto, genero);
 
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
     }

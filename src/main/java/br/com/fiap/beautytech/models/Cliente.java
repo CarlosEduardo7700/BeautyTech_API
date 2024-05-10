@@ -77,7 +77,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public void atualizarDados(AtualizarClienteDto dto, Genero genero, Telefone telefone) {
+    public void atualizarDados(AtualizarClienteDto dto, Genero genero) {
         if (dto.cpf() != null)
             this.cpf = dto.cpf();
         if (dto.nome() != null)
@@ -94,7 +94,11 @@ public class Cliente {
             this.dataDeExclusao = dto.dataDeExclusao();
         if (genero != null)
             this.genero = genero;
-        if (telefone != null)
-            this.telefone = telefone;
+        if (dto.ddiTelefone() != null)
+            this.telefone.setDdi(dto.ddiTelefone());
+        if (dto.dddTelefone() != null)
+            this.telefone.setDdd(dto.dddTelefone());
+        if (dto.numeroTelefone() != null)
+            this.telefone.setNumero(dto.numeroTelefone());
     }
 }
