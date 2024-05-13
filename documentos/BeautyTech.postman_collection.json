@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\": \"12345678901\",\r\n    \"nome\": \"Nome do Cliente\",\r\n    \"email\": \"cliente@email.com\",\r\n    \"dataDeNascimento\": \"1998-11-02\",\r\n    \"estadoCivil\": \"SOLTEIRO\",\r\n    \"genero\": \"MASCULINO\"\r\n}",
+							"raw": "{\r\n    \"cpf\": \"12345678912\",\r\n    \"nome\": \"Nome do Cliente\",\r\n    \"email\": \"cliente@email.com\",\r\n    \"senha\": \"senhaDificil\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"idGenero\": 1,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"912345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,7 +93,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\": \"12345678901\",\r\n    \"nome\": \"Nome do Cliente Atualizado\",\r\n    \"email\": \"cliente@email.com\",\r\n    \"dataDeNascimento\": \"2001-06-21\",\r\n    \"estadoCivil\": \"VIUVO\",\r\n    \"dataDeExclusao\": \"2024-04-11\"\r\n}",
+							"raw": "\r\n{\r\n    \"cpf\": \"98765432121\",\r\n    \"nome\": \"Nome do Cliente Atualizado\",\r\n    \"email\": \"clienteAtualizado@email.com\",\r\n    \"senha\": \"senhaMaisDificil\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"SOLTEIRO\",\r\n    \"dataDeExclusao\": null,\r\n    \"idGenero\": 2,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"987654321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -129,6 +129,146 @@
 							"port": "8080",
 							"path": [
 								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senha\": \"senhaDificil\",\r\n    \"email\": \"cliente@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "Inserir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome do Produto\",\r\n    \"descricao\": \"Descrição longa e detalhada do produto...\",\r\n    \"preco\": 2500.50,\r\n    \"dataDeFabricacao\": \"2024-04-23\",\r\n    \"validade\": \"2025-04-23\",\r\n    \"caminhoDaImagem\": \"/caminho/para/a/imagem.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos?size=5&page=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome do Produto Atualizado\",\r\n    \"descricao\": \"Descrição longa e detalhada do produto atualizada...\",\r\n    \"preco\": 1500.50,\r\n    \"dataDeFabricacao\": \"2024-03-23\",\r\n    \"validade\": \"2025-03-23\",\r\n    \"caminhoDaImagem\": \"/caminho/para/a/nova/imagem.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
 								"1"
 							]
 						}
