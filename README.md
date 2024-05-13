@@ -25,6 +25,25 @@ Para rodar a aplicação, siga estes passos:
 
 https://youtu.be/_sZQKQddodk
 
-## Endpoints (Sprint 1)
+## Endpoints (Sprint 2)
 
-- [http://localhost:8080/clientes](http://localhost:8080/clientes)
+- Cliente
+
+| Método        | URL             |
+| ------------- | --------------- |
+| POST          | /clientes       |
+| GET           | /clientes       |
+| GET           | /clientes/{id}  |
+| PUT           | /clientes/{id}  |
+| DELETE        | /clientes/{id}  |
+| POST          | /clientes/login |
+
+- Produto
+
+| Método        | URL            |
+| ------------- | -------------- |
+| POST          | /clientes      |
+| GET           | /clientes      |
+| GET           | /clientes/{id} |
+| PUT           | /clientes/{id} |
+
