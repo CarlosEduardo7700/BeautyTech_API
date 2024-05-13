@@ -23,8 +23,10 @@ public record AtualizarClienteDto(
         EstadoCivil estadoCivil,
         LocalDate dataDeExclusao,
         Long idGenero,
+        @Size(max = 3)
         String ddiTelefone,
         Integer dddTelefone,
+        @Size(max = 9)
         String numeroTelefone
 ) {
 }

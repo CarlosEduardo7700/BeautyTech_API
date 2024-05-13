@@ -32,7 +32,7 @@ public class ClienteController {
     private TelefoneRepository telefoneRepository;
 
     @PostMapping("login")
-    public ResponseEntity<DetalhesClienteDto> login(@RequestBody LoginClienteDto dto) {
+    public ResponseEntity<DetalhesClienteDto> login(@RequestBody @Valid LoginClienteDto dto) {
         var usuarioProcurado = repository.findByEmailAndSenha(dto.email(), dto.senha());
         Cliente cliente;
         if (usuarioProcurado.isEmpty())
