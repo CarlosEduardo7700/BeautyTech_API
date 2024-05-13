@@ -27,10 +27,12 @@ public record CadastroClienteDto(
         @NotNull(message = "Genero é obrigatório!")
         Long idGenero,
         @NotNull(message = "DDI do telefone é obrigatório!")
+        @Size(max = 3)
         String ddiTelefone,
         @NotNull(message = "DDD do telefone é obrigatório!")
         Integer dddTelefone,
         @NotNull(message = "Número do telefone é obrigatório!")
+        @Size(max = 9)
         String numeroTelefone
 ) {
 }
