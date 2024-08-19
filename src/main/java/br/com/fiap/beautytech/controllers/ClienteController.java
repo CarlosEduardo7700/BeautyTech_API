@@ -7,10 +7,14 @@ import br.com.fiap.beautytech.models.Telefone;
 import br.com.fiap.beautytech.repositories.ClienteRepository;
 import br.com.fiap.beautytech.repositories.GeneroRepository;
 import br.com.fiap.beautytech.repositories.TelefoneRepository;
+import br.com.fiap.beautytech.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -31,16 +35,24 @@ public class ClienteController {
     @Autowired
     private TelefoneRepository telefoneRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager manager;
+
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("login")
-    public ResponseEntity<DetalhesClienteDto> login(@RequestBody @Valid LoginClienteDto dto) {
-        var usuarioProcurado = repository.findByEmailAndSenha(dto.email(), dto.senha());
-        Cliente cliente;
-        if (usuarioProcurado.isEmpty())
-            return ResponseEntity.notFound().build();
-        else {
-            cliente = usuarioProcurado.get();
-            return ResponseEntity.ok(new DetalhesClienteDto(cliente));
-        }
+    public ResponseEntity<TokenJwtDto> login(@RequestBody @Valid LoginClienteDto dto) {
+        var token = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
+
+        var authentication = manager.authenticate(token);
+
+        var tokenJwt = tokenService.gerarToken((Cliente) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new TokenJwtDto(tokenJwt));
     }
 
     @PostMapping
@@ -52,7 +64,8 @@ public class ClienteController {
 
         Cliente cliente = new Cliente(dto,
                 generoRepository.getReferenceById(dto.idGenero()),
-                telefone);
+                telefone, passwordEncoder);
+
         repository.save(cliente);
 
         URI uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();

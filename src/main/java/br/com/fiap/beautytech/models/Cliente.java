@@ -8,10 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -19,7 +24,7 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Cliente {
+public class Cliente implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -66,11 +71,11 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<EnderecoDoCliente> enderecosDoCliente;
 
-    public Cliente(CadastroClienteDto dto, Genero genero, Telefone telefone) {
+    public Cliente(CadastroClienteDto dto, Genero genero, Telefone telefone, PasswordEncoder passwordEncoder) {
         this.cpf = dto.cpf();
         this.nome = dto.nome();
         this.email = dto.email();
-        this.senha = dto.senha();
+        this.senha = passwordEncoder.encode(dto.senha());
         this.dataDeNascimento = dto.dataDeNascimento();
         this.estadoCivil = dto.estadoCivil();
         this.genero = genero;
@@ -100,5 +105,40 @@ public class Cliente {
             this.telefone.setDdd(dto.dddTelefone());
         if (dto.numeroTelefone() != null)
             this.telefone.setNumero(dto.numeroTelefone());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
