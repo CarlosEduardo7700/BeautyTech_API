@@ -50,8 +50,9 @@ public class ClienteController {
 
         var authentication = manager.authenticate(token);
 
+        System.out.println(authentication);
         var tokenJwt = tokenService.gerarToken((Cliente) authentication.getPrincipal());
-
+        System.out.println(tokenJwt);
         return ResponseEntity.ok(new TokenJwtDto(tokenJwt));
     }
 

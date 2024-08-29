@@ -17,7 +17,6 @@ public record CadastroClienteDto(
         @Size(max = 100)
         String email,
         @NotBlank(message = "Senha é obrigatório!")
-        @Size(max = 50)
         String senha,
         @NotNull(message = "Data de nascimento é obrigatória!")
         @Past(message = "Data de nascimento precisa ser no passado.")

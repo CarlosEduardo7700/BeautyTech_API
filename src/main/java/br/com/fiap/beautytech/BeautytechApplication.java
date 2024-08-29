@@ -12,6 +12,4 @@ public class BeautytechApplication {
 		SpringApplication.run(BeautytechApplication.class, args);
 	}
 
-	// Proteger a API - Revisar o retorno do Login do CLiente
-
 }

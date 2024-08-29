@@ -10,7 +10,6 @@ public record LoginClienteDto(
         @Size(max = 100)
         String email,
         @NotBlank(message = "Senha é obrigatório!")
-        @Size(max = 50)
         String senha
 ) {
 }

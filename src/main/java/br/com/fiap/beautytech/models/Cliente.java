@@ -40,7 +40,7 @@ public class Cliente implements UserDetails {
     @Column(name = "EMAIL_CLIENTE", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "SENHA_CLIENTE", length = 50, nullable = false)
+    @Column(name = "SENHA_CLIENTE", nullable = false)
     private String senha;
 
     @Column(name = "DT_NASCIMENTO_CLIENTE", nullable = false)

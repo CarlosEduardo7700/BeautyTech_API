@@ -16,7 +16,7 @@ public record AtualizarClienteDto(
         @Email(message = "Formato de email inválido!")
         @Size(max = 100)
         String email,
-        @Size(max = 50)
+
         String senha,
         @Past(message = "Data de nascimento precisa ser no passado.")
         LocalDate dataDeNascimento,
