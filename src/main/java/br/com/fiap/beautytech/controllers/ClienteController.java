@@ -8,6 +8,15 @@ import br.com.fiap.beautytech.repositories.ClienteRepository;
 import br.com.fiap.beautytech.repositories.GeneroRepository;
 import br.com.fiap.beautytech.repositories.TelefoneRepository;
 import br.com.fiap.beautytech.service.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +33,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("clientes")
+@Tag(name = "Cliente", description = "Operações relacionadas aos Clientes (Usuários) da BeautyTech")
 public class ClienteController {
 
     @Autowired
@@ -45,6 +55,21 @@ public class ClienteController {
     private TokenService tokenService;
 
     @PostMapping("login")
+    @Operation(
+            summary = "Login do Cliente",
+            description = "Permite que o usuário insira seus dados para realiar o login na aplicação"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Login feito com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Dados inválidos"
+            )
+    })
     public ResponseEntity<TokenJwtDto> login(@RequestBody @Valid LoginClienteDto dto) {
         var token = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
 
@@ -58,6 +83,21 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
+    @Operation(
+            summary = "Cadastro do Cliente",
+            description = "Permite que o usuário insira seus dados para realiar seu cadastro na aplicação"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Cadastro com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Dados inválidos"
+            )
+    })
     public ResponseEntity<DetalhesClienteDto> inserir(@RequestBody @Valid CadastroClienteDto dto, UriComponentsBuilder uriBuilder) {
 
         Telefone telefone = new Telefone(dto);
@@ -75,6 +115,25 @@ public class ClienteController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Buscar todos os Cliente",
+            description = "Recupera dados de todos os clientes já cadastrados"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Busca realizada com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Não Autorizado ou Token Inválido"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Nenhuma informação encontrada"
+            )
+    })
     public ResponseEntity<List<ListagemClienteDto>> buscarTudo(Pageable pageable) {
 
         var listaDto = repository.findAll(pageable)
@@ -87,6 +146,35 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
+    @Operation(
+            summary = "Buscar um Cliente pelo seu ID",
+            description = "Recupera dados de um cliente por meio de seu ID"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Busca realizada com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Não Autorizado ou Token Inválido"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Nenhuma informação encontrada"
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    name = "id",
+                    description = "Pesquisa o Cliente por ID",
+                    required = true,
+                    in = ParameterIn.PATH,
+                    example = "123",
+                    schema = @Schema(type = "integer", format = "int64")
+            )
+    })
     public ResponseEntity<DetalhesClienteDto> buscarPorId(@PathVariable("id") Long id) {
         var cliente = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesClienteDto(cliente));
@@ -94,6 +182,35 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(
+            summary = "Atualizar um Cliente pelo seu ID",
+            description = "Atualiza os dados de um cliente por meio de seu ID"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Atualização realizada com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Não Autorizado ou Token Inválido"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Nenhuma informação encontrada"
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    name = "id",
+                    description = "Atualiza o Cliente por ID",
+                    required = true,
+                    in = ParameterIn.PATH,
+                    example = "123",
+                    schema = @Schema(type = "integer", format = "int64")
+            )
+    })
     public ResponseEntity<DetalhesClienteDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid AtualizarClienteDto dto) {
         var cliente = repository.getReferenceById(id);
         Genero genero = null;
@@ -108,6 +225,35 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     @Transactional
+    @Operation(
+            summary = "Deletar um Cliente pelo seu ID",
+            description = "Deleta os dados de um cliente por meio de seu ID"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Deleção realizada com Sucesso",
+                    content = @Content(schema = @Schema(implementation = DetalhesClienteDto.class), mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Não Autorizado ou Token Inválido"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Nenhuma informação encontrada"
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    name = "id",
+                    description = "Deleta o Cliente por ID",
+                    required = true,
+                    in = ParameterIn.PATH,
+                    example = "123",
+                    schema = @Schema(type = "integer", format = "int64")
+            )
+    })
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
