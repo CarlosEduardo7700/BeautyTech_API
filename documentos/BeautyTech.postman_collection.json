@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\": \"12345678912\",\r\n    \"nome\": \"Nome do Cliente\",\r\n    \"email\": \"cliente@email.com\",\r\n    \"senha\": \"senhaDificil\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"CASADO\",\r\n    \"idGenero\": 1,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"912345678\"\r\n}",
+							"raw": "{\r\n    \"cpf\": \"12345678\",\r\n    \"nome\": \"Roberto Gomes\",\r\n    \"email\": \"roberto.gomes@email.com\",\r\n    \"senha\": \"senha\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"SOLTEIRO\",\r\n    \"idGenero\": 1,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"912345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +72,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/clientes/1",
+							"raw": "http://localhost:8080/clientes/31528",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -80,7 +80,7 @@
 							"port": "8080",
 							"path": [
 								"clientes",
-								"1"
+								"31528"
 							]
 						}
 					},
@@ -89,11 +89,21 @@
 				{
 					"name": "Atualizar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCZWF1dHlUZWNoIiwic3ViIjoicm9kb2xmb0BlbWFpbC5jb20iLCJleHAiOjE3MjUwMzc3OTR9.zZDbiav45Q1qPqTLDgccgmLBkbgW8d72TXVU-FXN9YM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n{\r\n    \"cpf\": \"98765432121\",\r\n    \"nome\": \"Nome do Cliente Atualizado\",\r\n    \"email\": \"clienteAtualizado@email.com\",\r\n    \"senha\": \"senhaMaisDificil\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"SOLTEIRO\",\r\n    \"dataDeExclusao\": null,\r\n    \"idGenero\": 2,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"987654321\"\r\n}",
+							"raw": "\r\n{\r\n    \"cpf\": \"98765432121\",\r\n    \"nome\": \"Roberto Nunes\",\r\n    \"email\": \"roberto.nunes@email.com\",\r\n    \"senha\": \"senhaMaisDificil\",\r\n    \"dataDeNascimento\": \"2004-09-12\",\r\n    \"estadoCivil\": \"SOLTEIRO\",\r\n    \"dataDeExclusao\": null,\r\n    \"idGenero\": 1,\r\n    \"ddiTelefone\": \"+55\",\r\n    \"dddTelefone\": 11,\r\n    \"numeroTelefone\": \"987654321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"senha\": \"senhaDificil\",\r\n    \"email\": \"cliente@email.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"roberto.nunes@email.com\",\r\n    \"senha\": \"senhaMaisDificil\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
