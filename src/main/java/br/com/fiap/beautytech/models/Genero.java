@@ -1,6 +1,9 @@
 package br.com.fiap.beautytech.models;
 
+import br.com.fiap.beautytech.dtos.generos.AtualizarGeneroDto;
+import br.com.fiap.beautytech.dtos.generos.CadastroDeGeneroDto;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +29,16 @@ public class Genero {
 
     @OneToMany(mappedBy = "genero", fetch = FetchType.LAZY)
     private List<Cliente> clientes;
+
+    public Genero(CadastroDeGeneroDto dto) {
+        this.nome = dto.nome();
+        this.descricao = dto.descricao();
+    }
+
+    public void atualizarDados(AtualizarGeneroDto dto) {
+        if (dto.nome() != null)
+            this.nome = dto.nome();
+        if (dto.descricao() != null)
+            this.descricao = dto.descricao();
+    }
 }
